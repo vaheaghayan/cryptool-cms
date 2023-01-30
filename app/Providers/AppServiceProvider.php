@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Algorithm\AlgorithmContract;
+use App\Models\Algorithm\AlgorithmManager;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(AlgorithmContract::class, AlgorithmManager::class);
     }
 
     /**

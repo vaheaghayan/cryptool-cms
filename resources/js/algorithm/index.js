@@ -2,7 +2,6 @@ let enCheckbox = $('#en-checkbox');
 let hyCheckbox = $('#hy-checkbox');
 
 
-
 let mainPage = $('#main-page');
 let englishPage = $('#english-page').hide();
 let armenianPage = $('#armenian-page').hide();
@@ -14,7 +13,6 @@ let armenianBtn = $('#armenian-btn');
 
 englishPage.hide();
 armenianPage.hide();
-
 
 
 $('#main-btn').on('click', function (x) {
@@ -47,4 +45,27 @@ $('#armenian-btn').on('click', function (x) {
     armenianPage.show();
 })
 
+$('#submit-btn').on('click', function () {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        method: 'POST',
+        url: $('#submit-btn').data('url'),
+        dataType: "json",
 
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+            data.forEach(error => console.log(error))
+            // $('#count').html(data.count);
+            // $('.ciphers').hide();
+            // data.ciphers.forEach(function (cipher){
+            //     $(`#${cipher.name}`).show();
+            // });
+        },
+        error: function (data) {
+            forEach
+        }
+
+    });
+});

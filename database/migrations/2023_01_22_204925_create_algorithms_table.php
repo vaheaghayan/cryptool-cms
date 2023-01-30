@@ -16,10 +16,10 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->text('icon');
-            $table->text('image_1');
-            $table->text('image_2');
-            $table->text('image_3');
+            $table->text('icon')->nullable();
+            $table->text('image_1')->nullable();
+            $table->text('image_2')->nullable();
+            $table->text('image_3')->nullable();
             $table->enum('show_status', ['1', '0']);
             $table->timestamps();
         });
