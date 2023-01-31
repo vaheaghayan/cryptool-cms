@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AlgorithmRequest;
 use App\Models\Algorithm\AlgorithmContract;
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -20,16 +21,16 @@ class IndexController extends Controller
         return view('dashboard');
     }
 
-    public function edit()
+    public function edit(Request $request)
     {
+        dd($request, csrf_token());
         return view('edit');
     }
 
     public function store(AlgorithmRequest $request)
     {
-        $data = $request->only('data')['data'];
-        $ml = $request->only('ml')['ml'];
-        $this->manager->store($data, $ml);
+        $validatedData = $request->validated();
+        $this->manager->store($validatedData['data'], $validatedData['ml']);
 
         return response()->json([
             'message' => 'successfully stored'

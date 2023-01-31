@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('algorithm_id')->unsigned();
             $table->string('lng_code', 2);
             $table->string('title');
-            $table->text('info');
+            $table->text('info')->nullable();
         });
     }
 
