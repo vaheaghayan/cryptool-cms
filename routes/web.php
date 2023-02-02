@@ -30,8 +30,10 @@ Route::prefix('/{locale}/cms')->group(function () {
 
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\IndexController::class, 'index'])->name('dashboard');
-        Route::get('/edit', [\App\Http\Controllers\IndexController::class, 'edit']);
-        Route::post('/edit', [\App\Http\Controllers\IndexController::class, 'store'])->name('edit');
+        Route::get('/edit', [\App\Http\Controllers\IndexController::class, 'edit'])->name('create.page');
+        Route::get('/edit/{id}', [\App\Http\Controllers\IndexController::class, 'edit'])->name('edit.page');
+        Route::post('/create', [\App\Http\Controllers\IndexController::class, 'store'])->name('store');
+        Route::post('/update', [\App\Http\Controllers\IndexController::class, 'update'])->name('update');
     });
 });
 

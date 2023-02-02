@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Algorithm;
+namespace App\Models\Cypher;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AlgorithmMl extends Model
+class CypherMl extends Model
 {
     public $timestamps = false;
 
@@ -14,5 +14,5 @@ class AlgorithmMl extends Model
         'info',
     ];
 
-    protected $table = 'algorithms_ml';
+    protected $table = 'cyphers_ml';
 }

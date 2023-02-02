@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('algorithms_ml', function (Blueprint $table) {
-            $table->bigInteger('algorithm_id')->unsigned();
+        Schema::create('cyphers_ml', function (Blueprint $table) {
+            $table->bigInteger('cypher_id')->unsigned();
             $table->string('lng_code', 2);
             $table->string('title');
             $table->text('info')->nullable();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('algorithms_ml');
+        Schema::dropIfExists('cyphers_ml');
     }
 };

@@ -1,3 +1,8 @@
 .form-group .required .control-label:after {
     content:"*";color:red;
 }
+
+.logo-img {
+    width: 42px;
+    height: 42px
+}

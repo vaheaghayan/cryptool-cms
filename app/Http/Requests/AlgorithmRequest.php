@@ -27,12 +27,15 @@ class AlgorithmRequest extends FormRequest
             'data.name' => 'string|required',
             'data.description' => 'string|required',
             'data.img.icon' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
-            'data.img.image_1' => 'image',
-            'data.img.image_2' => 'image',
-            'data.img.image_3' => 'image',
+            'data.img.image_1' => 'image|mimes:jpg,png,jpeg,gif,svg',
+            'data.img.image_2' => 'image|mimes:jpg,png,jpeg,gif,svg',
+            'data.img.image_3' => 'image|mimes:jpg,png,jpeg,gif,svg',
             'data.show_status' => 'required|in:1,0',
             'ml.en.title' => 'required|string',
+//            'ml.en.info' => 'required|string',
             'ml.am.title' => 'required|string',
+//            'ml.am.info' => 'required|string',
         ];
     }
-}
+
+    }
