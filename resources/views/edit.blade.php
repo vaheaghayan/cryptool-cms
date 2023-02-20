@@ -26,133 +26,123 @@
 
         <form class=".col-md-12 mt-8" action="{{route('store', [cLng()])}}" enctype="multipart/form-data" method="post">
             @csrf
-            <div id="main-page" class="">
-                <div>
-                    <h1 class="items-center"> Algorithm Create</h1>
+            <div class="col-lg-6 m-auto">
+                <div id="main-page" >
+                    <div>
+                        <h1 class="items-center"> Algorithm Create</h1>
+                    </div>
+
+                    <div>
+                        <x-input-label for="name" :value="__('Name')" />
+                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="data[name]" value="{{$cypher->name ?? ''}}"/>
+                        <x-input-error :messages="$errors->get('data.name')" class="mt-2" />
+                    </div>
+
+                    <div class="form-group col-lg-4 mt-4">
+
+                        <x-input-label  for="category">Select Cipher Category</x-input-label>
+                        <select class="form-control" name="data[category]" id="category">
+                            <option >Select Category</option>
+                            @foreach(\App\Models\Cypher\Cypher::CATEGORIES as $category)
+                            <option value="{{$category}}" @if($cypher && $category == $cypher->category) selected @endif >{{ucwords(str_replace( '_', ' ',$category  ))}}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('data.category')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-input-label for="description" :value="__('Description')" />
+                        <textarea rows="3" id="description" name="data[description]" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full " >{{$cypher->description ?? ''}}</textarea>
+                        <x-input-error :messages="$errors->get('data.description')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4 col-lg-4">
+
+                        @if($cypher && $cypher->icon)
+                            <img  style="width: 130px; height: 130px" src="{{asset('storage/images/cyphers/icon/' . $cypher->icon)}}">
+                        @endif
+
+                        <x-input-label for="icon" :value="__('Icon')" />
+                        <input type="file" id="icon" class="form-control" value="{{$cypher->icon ?? ''}}" name="data[icon]" />
+                        <x-input-error :messages="$errors->get('data.icon')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
+                        <input type="radio" class="btn-check" name="data[show_status]" id="show_status_active" autocomplete="off" value="{{\App\Models\Cypher\Cypher::STATUS_ACTIVE}}"
+                        @if($cypher && $cypher->show_status)
+                            checked
+                        @elseif(!$cypher)
+                            checked
+                        @endif>
+                        <label class="btn btn-outline-secondary " for="show_status_active">Active</label>
+
+                        <input type="radio" class="btn-check" name="data[show_status]" id="show_status_inactive" autocomplete="off" value="{{\App\Models\Cypher\Cypher::STATUS_INACTIVE}}"
+                        @if($cypher && !$cypher->show_status)
+                            checked
+                        @endif >
+                        <label class="btn btn-outline-secondary" for="show_status_inactive">Inactive</label>
+                    </div>
                 </div>
 
-                <div class="col-lg-6 m-auto">
-                    <x-input-label for="name" :value="__('Name')" />
-                    <x-text-input id="name" class="block mt-1 w-full" type="text" name="data[name]" value="{{$cypher->name ?? ''}}"/>
-                    <x-input-error :messages="$errors->get('data.name')" class="mt-2" />
-                </div>
 
-                <div class="col-lg-6 m-auto mt-4">
-                    <x-input-label for="description" :value="__('Description')" />
-                    <textarea rows="3" id="description" name="data[description]" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm block mt-1 w-full " >{{$cypher->description ?? ''}}</textarea>
-                    <x-input-error :messages="$errors->get('data.description')" class="mt-2" />
-                </div>
+                <div id="english-page">
+                    <div>
+                        <h1 class="items-center"> Page in english</h1>
+                    </div>
 
-                <div class="col-lg-2 m-auto mt-4">
-                    <x-input-label for="icon" :value="__('Icon')" />
-                    <input type="file" id="icon" class="form-control" value="{{$cypher->icon ?? ''}}" name="data[img][icon]" />
-                    <x-input-error :messages="$errors->get('data.img.icon')" class="mt-2" />
-                </div>
+                    <div>
+                        <x-input-label for="title" :value="__('Title')" />
+                        <x-text-input id="title" class="block mt-1 w-full" type="text" name="ml[en][title]" value="{{$cypher->ml[0]->title ?? ''}}"/>
+                        <x-input-error :messages="$errors->get('ml.en.title')" class="mt-2" />
+                    </div>
 
-                <div class="col-lg-2 m-auto mt-4">
-                    <x-input-label for="image-1" :value="__('Image 1')" />
-                    <input type="file" id="image-1" class="form-control" name="data[img][image_1]" />
-                    <x-input-error :messages="$errors->get('data.img.image_1')" class="mt-2" />
-                </div>
-
-                <div class="col-lg-2 m-auto mt-4">
-                    <x-input-label for="image-2" :value="__('Image 2')" />
-                    <input type="file" id="image-2" class="form-control" name="data[img][image_2]" />
-                    <x-input-error :messages="$errors->get('data.img.image_2')" class="mt-2" />
-                </div>
-
-                <div class="col-lg-2 m-auto mt-4">
-                    <x-input-label for="image-3" :value="__('Image 3')" />
-                    <input type="file" id="image-3" class="form-control" name="data[img][image_3]" />
-                    <x-input-error :messages="$errors->get('data.img.image_3')" class="mt-2" />
-                </div>
-
-{{--                <div class="form-group required">--}}
-{{--                    <div class="form-group required">--}}
-{{--                        <label class="col-md-2 control-label"> {{__('Languages')}} </label>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-check form-check-inline">--}}
-{{--                        <input class="form-check-input" type="checkbox" id="en-checkbox" >--}}
-{{--                        <label class="form-check-label" for="en-checkbox">English</label>--}}
-{{--                    </div>--}}
-{{--                    <div class="form-check form-check-inline">--}}
-{{--                        <input class="form-check-input" type="checkbox" id="hy-checkbox" >--}}
-{{--                        <label class="form-check-label" for="hy-checkbox">Armenian</label>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-                <div class="show-status-block">
-                    <input type="radio" class="btn-check" name="data[show_status]" id="show_status_active" autocomplete="off" value="{{\App\Models\Cypher\Cypher::STATUS_ACTIVE}}"
-                    @if($cypher && $cypher->show_status)
-                        checked
-                    @elseif(!$cypher)
-                        checked
-                    @endif>
-                    <label class="btn btn-secondary" for="show_status_active">Active</label>
-
-                    <input type="radio" class="btn-check" name="data[show_status]" id="show_status_inactive" autocomplete="off" value="{{\App\Models\Cypher\Cypher::STATUS_INACTIVE}}"
-                    @if($cypher && !$cypher->show_status)
-                        checked
-                    @endif >
-                    <label class="btn btn-secondary" for="show_status_inactive">Inactive</label>
-                </div>
-            </div>
-
-
-            <div id="english-page">
-                <div>
-                    <h1 class="items-center"> Page in english</h1>
-                </div>
-
-                <div class="col-lg-6 m-auto">
-                    <x-input-label for="title" :value="__('Title')" />
-                    <x-text-input id="title" class="block mt-1 w-full" type="text" name="ml[en][title]" value="{{$cypher->ml[0]->title ?? ''}}"/>
-                    <x-input-error :messages="$errors->get('ml.en.title')" class="mt-2" />
-                </div>
-
-                <div class="container mt-4 mb-4">
-                    <!--Bootstrap classes arrange web page components into columns and rows in a grid -->
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-12 col-lg-8">
-                            <label> {{ __('Algorithm Information') }} </label>
-                            <div class="form-group">
-                                <textarea id="editor" name="ml[en][info]">{{$cypher->ml[0]->info ?? ''}}</textarea>
+                    <div class=" mt-4 mb-4">
+                        <!--Bootstrap classes arrange web page components into columns and rows in a grid -->
+                        <div class="row justify-content-md-center">
+                            <div>
+                                <label> {{ __('Algorithm Information') }} </label>
+                                <div class="form-group">
+                                    <textarea id="editor" name="ml[en][info]">{{$cypher->ml[0]->info ?? ''}}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="armenian-page">
-                <div>
-                    <h1 class="items-center"> Page in armenian</h1>
-                </div>
+                <div id="armenian-page">
+                    <div>
+                        <h1 class="items-center"> Page in armenian</h1>
+                    </div>
 
-                <div class="col-lg-6 m-auto">
-                    <x-input-label for="title" :value="__('Title')" />
-                    <x-text-input id="title" class="block mt-1 w-full" type="text" name="ml[am][title]" value="{{$cypher->ml[1]->title ?? ''}}"/>
-                    <x-input-error :messages="$errors->get('ml.am.title')" class="mt-2" />
-                </div>
+                    <div>
+                        <x-input-label for="title" :value="__('Title')" />
+                        <x-text-input id="title" class="block mt-1 w-full" type="text" name="ml[am][title]" value="{{$cypher->ml[1]->title ?? ''}}"/>
+                        <x-input-error :messages="$errors->get('ml.am.title')" class="mt-2" />
+                    </div>
 
-                <div class="container mt-4 mb-4">
-                    <!--Bootstrap classes arrange web page components into columns and rows in a grid -->
-                    <div class="row justify-content-md-center">
-                        <div class="col-md-12 col-lg-8">
-                            <label> {{ __('Algorithm Information') }} </label>
-                            <div class="form-group">
-                                <textarea id="editor" name="ml[am][info]">{{$cypher->ml[1]->info ?? ''}}</textarea>
+                    <div class="mt-4 mb-4">
+                        <!--Bootstrap classes arrange web page components into columns and rows in a grid -->
+                        <div class="row justify-content-md-center">
+                            <div>
+                                <label> {{ __('Algorithm Information') }} </label>
+                                <div class="form-group">
+                                    <textarea id="editor" name="ml[am][info]">{{$cypher->ml[1]->info ?? ''}}</textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div>
+                    <div class="mt-5">
+                        <button class="btn btn-secondary">
+                            {{__('Submit')}}
+                        </button>
+                    </div>
+                </div>
             </div>
-
-            <x-primary-button  id="submit-btn" class="ml-3">
-                {{ __('Submit') }}
-            </x-primary-button>
-
             @if($cypher)
-                <input type="hidden" value="{{$cypher->id}}">
+                <input type="hidden" name="id" value="{{$cypher->id}}">
             @endif
         </form>
     </div>

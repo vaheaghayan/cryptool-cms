@@ -13,6 +13,8 @@ class Cypher extends Model
     const STATUS_ACTIVE = '1';
     const STATUS_INACTIVE = '0';
 
+    const CATEGORIES = ['classic_algorithms', 'hash_algorithms', 'cryptographic_algorithms'];
+
     protected $fillable = [
         'name',
         'description',

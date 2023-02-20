@@ -17,10 +17,8 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->text('icon');
-            $table->text('image_1')->nullable();
-            $table->text('image_2')->nullable();
-            $table->text('image_3')->nullable();
+            $table->enum('category',Cypher::CATEGORIES);
+            $table->text('icon')->nullable();
             $table->enum('show_status', [Cypher::STATUS_ACTIVE, Cypher::STATUS_INACTIVE]);
             $table->timestamps();
         });

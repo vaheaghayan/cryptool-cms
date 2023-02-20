@@ -6,8 +6,8 @@ interface CypherContract
 {
     public function store(array $data, array $ml);
 
-    public function update(array $data, array $ml);
+    public function update(array $data, array $ml, int $id);
 
-    public function delete();
+    public function delete($id);
 
 }

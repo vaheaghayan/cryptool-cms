@@ -9,27 +9,16 @@ class CypherManager implements CypherContract
 {
     public function store(array $data, array $ml): void
     {
-        $images = [];
+        if (isset($data['icon'])) {
+            $imageName = now()->timestamp . '_' . $data['icon']->getClientOriginalName();
+            $data['icon']->storeAs('images/cyphers/icon', $imageName, 'public');
 
-        foreach ($data['img'] as $key => $image) {
-            $imageName = now()->timestamp . '_' . $image->getClientOriginalName();
-            $image->storeAs('images/cyphers/' . $key, $imageName, 'public');
-            $images[$key] = $imageName;
+            unset($data['icon']);
+            $data['icon'] = $imageName;
         }
 
-        unset($data['img']);
-        $data = array_merge($images, $data);
-
         DB::transaction(function () use ($data, $ml) {
-            $algorithm = Cypher::create([
-                'name' => $data['name'],
-                'description' => $data['description'],
-                'icon' => $data['icon'],
-                'image_1' => $data['image_1'] ?? null,
-                'image_2' => $data['image_2'] ?? null,
-                'image_3' => $data['image_3'] ?? null,
-                'show_status' => $data['show_status']
-            ]);
+            $algorithm = Cypher::create($data);
 
             foreach ($ml as $code => $cypherMl) {
                 CypherMl::insert(array_merge(['lng_code' => $code, 'cypher_id' => $algorithm->id], $cypherMl));
@@ -39,42 +28,28 @@ class CypherManager implements CypherContract
         });
     }
 
-    public function update(array $data, array $ml)
+    public function update(array $data, array $ml, int $id)
     {
-        $images = [];
+        if (isset($data['icon'])) {
+            $imageName = now()->timestamp . '_' . $data['icon']->getClientOriginalName();
+            $data['icon']->storeAs('images/cyphers/icon', $imageName, 'public');
 
-        foreach ($data['img'] as $key => $image) {
-            $imageName = now()->timestamp . '_' . $image->getClientOriginalName();
-            $image->storeAs('images/cyphers/' . $key, $imageName, 'public');
-            $images[$key] = $imageName;
+            unset($data['icon']);
+            $data['icon'] = $imageName;
         }
 
-        unset($data['img']);
-        $data = array_merge($images, $data);
+        DB::transaction(function () use ($data, $ml, $id) {
 
-        DB::transaction(function () use ($data, $ml) {
-            $algorithm = Cypher::create([
-                'name' => $data['name'],
-                'description' => $data['description'],
-                'icon' => $data['icon'],
-                'image_1' => $data['image_1'] ?? null,
-                'image_2' => $data['image_2'] ?? null,
-                'image_3' => $data['image_3'] ?? null,
-                'show_status' => $data['show_status']
-            ]);
-
+            Cypher::where('id', $id)->update($data);
             foreach ($ml as $code => $cypherMl) {
-                CypherMl::insert(array_merge(['lng_code' => $code, 'cypher_id' => $algorithm->id], $cypherMl));
+                CypherMl::where('cypher_id', $id)->where('lng_code', $code)->update($cypherMl);
             }
-
-            $algorithm->save();
         });
-        dd(1);
     }
 
-    public function delete()
+    public function delete($id)
     {
-        // TODO: Implement delete() method.
+        Cypher::destroy($id);
     }
 
 }

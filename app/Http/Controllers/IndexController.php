@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AlgorithmRequest;
 use App\Models\Cypher\Cypher;
 use App\Models\Cypher\CypherContract;
-use Illuminate\Http\File;
-use Illuminate\Http\Request;
+
 
 class IndexController extends Controller
 {
@@ -39,17 +38,23 @@ class IndexController extends Controller
     public function store(AlgorithmRequest $request)
     {
         $validatedData = $request->validated();
-        $this->manager->store($validatedData['data'], $validatedData['ml']);
+
+        $id = $request->get('id');
+
+        if ($request->get('id')) {
+            $this->manager->update($validatedData['data'], $validatedData['ml'], $id);
+        } else {
+            $this->manager->store($validatedData['data'], $validatedData['ml']);
+        }
 
         return redirect()->route('dashboard', ['locale' => cLng()]);
     }
 
-    public function update(AlgorithmRequest $request)
+    public function delete(Request $request)
     {
-        dd($request->input('id'));
-        $validatedData = $request->validated();
-        $this->manager->update($validatedData['data'], $validatedData['ml']);
+        $id = $request->route()->parameter('id');
+        $this->manager->delete($id);
 
-
+        return redirect()->route('dashboard', ['locale' => cLng()]);
     }
 }

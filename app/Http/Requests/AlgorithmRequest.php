@@ -24,18 +24,18 @@ class AlgorithmRequest extends FormRequest
     public function rules()
     {
         return [
+            'id' => 'int',
             'data.name' => 'string|required',
             'data.description' => 'string|required',
-            'data.img.icon' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
-            'data.img.image_1' => 'image|mimes:jpg,png,jpeg,gif,svg',
-            'data.img.image_2' => 'image|mimes:jpg,png,jpeg,gif,svg',
-            'data.img.image_3' => 'image|mimes:jpg,png,jpeg,gif,svg',
+            'data.icon' => 'image|mimes:jpg,png,jpeg,gif,svg',
+            'data.category' => 'in:classic_algorithms,hash_algorithms,cryptographic_algorithms',
             'data.show_status' => 'required|in:1,0',
             'ml.en.title' => 'required|string',
-//            'ml.en.info' => 'required|string',
+            'ml.en.info' => 'string',
             'ml.am.title' => 'required|string',
-//            'ml.am.info' => 'required|string',
+            'ml.am.info' => 'string',
         ];
     }
+
 
     }

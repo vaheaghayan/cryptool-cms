@@ -27,13 +27,12 @@ Route::prefix('/{locale}/cms')->group(function () {
 
     App::setLocale($locale);
 
-
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\IndexController::class, 'index'])->name('dashboard');
         Route::get('/edit', [\App\Http\Controllers\IndexController::class, 'edit'])->name('create.page');
         Route::get('/edit/{id}', [\App\Http\Controllers\IndexController::class, 'edit'])->name('edit.page');
-        Route::post('/create', [\App\Http\Controllers\IndexController::class, 'store'])->name('store');
-        Route::post('/update', [\App\Http\Controllers\IndexController::class, 'update'])->name('update');
+        Route::post('/store', [\App\Http\Controllers\IndexController::class, 'store'])->name('store');
+        Route::post('/delete/{id}', [\App\Http\Controllers\IndexController::class, 'delete'])->name('delete');
     });
 });
 
