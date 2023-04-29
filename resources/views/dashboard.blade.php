@@ -54,7 +54,7 @@
                             <tr class="col-lg-12 d-flex justify-content-between">
                                 @if($cypher->icon)
                                 <td class="columns-lg p-6 text-gray-900">
-                                    <img class="logo-img" src="{{asset('storage/images/cyphers/icon/' . $cypher->icon)}}">
+                                    <img class="logo-img" src="{{'/images/' . $cypher->icon}}">
                                 </td>
                                 @else
                                 <td class="columns-lg p-6 text-gray-900">

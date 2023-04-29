@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Cypher\Cypher;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AlgorithmRequest extends FormRequest
 {
@@ -27,15 +29,14 @@ class AlgorithmRequest extends FormRequest
             'id' => 'int',
             'data.name' => 'string|required',
             'data.description' => 'string|required',
-            'data.icon' => 'image|mimes:jpg,png,jpeg,gif,svg',
-            'data.category' => 'in:classic_algorithms,hash_algorithms,cryptographic_algorithms',
+//            'data.icon' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
+            'data.category' => Rule::in(Cypher::CATEGORIES),
             'data.show_status' => 'required|in:1,0',
             'ml.en.title' => 'required|string',
-            'ml.en.info' => 'string',
+            'ml.en.info' => 'required|string',
             'ml.am.title' => 'required|string',
-            'ml.am.info' => 'string',
+            'ml.am.info' => 'required|string',
         ];
     }
 
-
-    }
+}

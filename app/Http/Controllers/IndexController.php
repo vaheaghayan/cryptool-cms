@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AlgorithmRequest;
 use App\Models\Cypher\Cypher;
 use App\Models\Cypher\CypherContract;
-
+use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
@@ -38,7 +38,6 @@ class IndexController extends Controller
     public function store(AlgorithmRequest $request)
     {
         $validatedData = $request->validated();
-
         $id = $request->get('id');
 
         if ($request->get('id')) {

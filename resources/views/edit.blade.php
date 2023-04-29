@@ -59,7 +59,7 @@
                     <div class="mt-4 col-lg-4">
 
                         @if($cypher && $cypher->icon)
-                            <img  style="width: 130px; height: 130px" src="{{asset('storage/images/cyphers/icon/' . $cypher->icon)}}">
+                            <img  style="width: 130px; height: 130px" src="{{url('/images/'. $cypher->icon)}}">
                         @endif
 
                         <x-input-label for="icon" :value="__('Icon')" />

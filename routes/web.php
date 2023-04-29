@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('/{locale}/cms')->group(function () {
+Route::prefix('/{locale}')->group(function () {
     $locale = request()->segment(1);
     if (!in_array(request()->segment(1), ['en', 'am'])) {
 //        abort(404);

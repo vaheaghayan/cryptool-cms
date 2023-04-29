@@ -1,4 +1,4 @@
-import './bootstrap';
+// import './bootstrap';
 import './algorithm/index';
 import '../css/style.css';
 

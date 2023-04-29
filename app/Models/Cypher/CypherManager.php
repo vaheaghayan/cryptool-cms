@@ -10,8 +10,10 @@ class CypherManager implements CypherContract
     public function store(array $data, array $ml): void
     {
         if (isset($data['icon'])) {
+            $icon = $data['icon'];
             $imageName = now()->timestamp . '_' . $data['icon']->getClientOriginalName();
-            $data['icon']->storeAs('images/cyphers/icon', $imageName, 'public');
+            $icon->move('/vagrant/content/images', $imageName);
+//            $data['icon']->storeAs('images/cyphers/icon', $imageName, 'public');
 
             unset($data['icon']);
             $data['icon'] = $imageName;
@@ -31,8 +33,9 @@ class CypherManager implements CypherContract
     public function update(array $data, array $ml, int $id)
     {
         if (isset($data['icon'])) {
+            $icon = $data['icon'];
             $imageName = now()->timestamp . '_' . $data['icon']->getClientOriginalName();
-            $data['icon']->storeAs('images/cyphers/icon', $imageName, 'public');
+            $icon->move('/vagrant/content/images', $imageName);
 
             unset($data['icon']);
             $data['icon'] = $imageName;

@@ -9,5 +9,4 @@ interface CypherContract
     public function update(array $data, array $ml, int $id);
 
     public function delete($id);
-
 }
