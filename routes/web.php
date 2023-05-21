@@ -33,6 +33,12 @@ Route::prefix('/{locale}')->group(function () {
         Route::get('/edit/{id}', [\App\Http\Controllers\IndexController::class, 'edit'])->name('edit.page');
         Route::post('/store', [\App\Http\Controllers\IndexController::class, 'store'])->name('store');
         Route::post('/delete/{id}', [\App\Http\Controllers\IndexController::class, 'delete'])->name('delete');
+
+        Route::get('/cypher/categories', [\App\Http\Controllers\AlgorithmCategoryController::class, 'index']);
+
+        Route::get('/cypher/category/edit/{id?}', [\App\Http\Controllers\AlgorithmCategoryController::class, 'editPage']);
+        Route::post('/cypher/category/edit', [\App\Http\Controllers\AlgorithmCategoryController::class, 'edit']);
+        Route::post('/cypher/category/delete/{id}', [\App\Http\Controllers\AlgorithmCategoryController::class, 'delete']);
     });
 });
 

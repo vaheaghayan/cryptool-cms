@@ -2,17 +2,16 @@
     <x-slot name="header">
         <div class="flex justify-content-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Algorithms') }}
+                {{ __('Categories') }}
             </h2>
 
             <div>
-
-                <a href="{{url(cLng() . '/cypher/categories')}}" type="button" class="right-0 btn btn-primary">
-                    {{ __('Algorithms Categories') }}
+                <a href="{{url(cLng(). '/cypher/category/edit')}}" type="button" class="btn btn-secondary">
+                    {{ __('Create Category') }}
                 </a>
 
-                <a href="{{route('create.page', ['locale' => cLng()])}}" type="button" class="right-0 btn btn-primary">
-                    {{ __('Create') }}
+                <a href="{{route('dashboard', ['locale' => cLng()])}}" type="button" class="btn btn-secondary">
+                    {{ __('Back') }}
                 </a>
             </div>
         </div>
@@ -21,15 +20,12 @@
     <div class="col-lg-12 d-flex justify-content-center mt-5">
         <div class="col-lg-9">
             <div class="col-lg-12">
-                @if($cyphers->isNotEmpty())
+                @if($categories->isNotEmpty())
                     <table class="col-lg-12">
                         <thead>
                         <tr class="col-lg-12 d-flex justify-content-between">
                             <th class="columns-lg p-6 text-gray-900">
-                                Icon
-                            </th>
-                            <th class="columns-lg p-6 text-gray-900">
-                                Cypher Name
+                                Category Name
                             </th>
                             <th class="columns-lg p-6 text-gray-900">
                                 Created At
@@ -47,31 +43,19 @@
                         </thead>
 
                         <tbody>
-                        @foreach($cyphers as $cypher)
+                        @foreach($categories as $category)
                             <tr class="col-lg-12 d-flex justify-content-between">
-                                @if($cypher->icon)
                                 <td class="columns-lg p-6 text-gray-900">
-                                    <img class="logo-img" src="{{'/images/' . $cypher->icon}}">
-                                </td>
-                                @else
-                                <td class="columns-lg p-6 text-gray-900">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-image" viewBox="0 0 16 16">
-                                        <path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
-                                        <path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"/>
-                                    </svg>
-                                </td>
-                                @endif
-                                <td class="columns-lg p-6 text-gray-900">
-                                    {{$cypher->name}}
+                                    {{$category->name}}
                                 </td>
                                 <td class="columns-lg p-6 text-gray-900">
-                                    {{$cypher->created_at}}
+                                    {{$category->created_at}}
                                 </td>
                                 <td class="columns-lg p-6 text-gray-900">
-                                    {{$cypher->updated_at}}
+                                    {{$category->updated_at}}
                                 </td>
                                 <td class="columns-lg p-6 text-gray-900">
-                                    @if($cypher->show_status)
+                                    @if($category->show_status)
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
                                             <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
                                         </svg>
@@ -82,16 +66,18 @@
                                     @endif
                                 </td>
                                 <td class="columns-lg p-6 text-gray-900">
-                                    <button type="button" class="btn btn-primary">
-                                        <a href="{{route('edit.page', ['id' => $cypher->id, 'locale' => cLng()])}}" style="text-decoration: none; color: white">Edit</a>
-                                    </button>
+                                        <a href="{{ url(cLng() . '/cypher/category/edit/' . $category->id) }}" style="text-decoration: none; color: white">
+                                            <button type="button" class="btn btn-primary">
+                                            Edit
+                                            </button>
+                                        </a>
 
-                                    <button type="button" class="btn btn-danger">
-                                        <form action="{{route('delete', ['id' => $cypher->id, 'locale' => cLng()])}}" method="post">
-                                            @csrf
-                                            <input type="submit" value="Delete">
-                                        </form>
-                                    </button>
+                                            <form action="{{ url(cLng() . '/cypher/category/delete/' . $category->id) }}" method="post">
+                                                @csrf
+                                                <button type="button" class="btn btn-danger">
+                                                    <input type="submit" value="Delete">
+                                                </button>
+                                            </form>
 
                                 </td>
                             </tr>
@@ -103,5 +89,4 @@
         </div>
     </div>
 
-    <div class="w3-row-padding w3-padding-64 w3-container" align="center"></div>
 </x-app-layout>
