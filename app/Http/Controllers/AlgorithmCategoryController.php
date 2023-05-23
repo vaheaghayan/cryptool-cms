@@ -43,14 +43,15 @@ class AlgorithmCategoryController extends Controller
     {
 
         $validatedData = $request->validate([
-            'data.name' => 'required|string',
             'data.show_status' => 'required|in:' . CypherCategory::STATUS_ACTIVE . ',' . CypherCategory::STATUS_INACTIVE,
             'ml.en.body' => 'string|nullable',
+            'ml.en.name' => 'required|string',
+            'ml.am.name' => 'required|string',
             'ml.am.body' => 'string|nullable',
             'id' => 'integer|nullable'
         ]);
 
-        $alias = preg_replace('/\s+/', '_', strtolower($validatedData['data']['name']));
+        $alias = preg_replace('/\s+/', '_', strtolower($validatedData['ml']['en']['name']));
         $validatedData['data']['alias'] = $alias;
 
         if ($validatedData['id']) {
@@ -58,9 +59,9 @@ class AlgorithmCategoryController extends Controller
             $cypherCategory->update($validatedData['data']);
 
             foreach ($validatedData['ml'] as $code => $mlData) {
-                dump($mlData);
                 CypherCategoryMl::where('cypher_category_id', $cypherCategory->id)->where('lng_code', $code)->update([
-                    'body' => $mlData['body']
+                    'body' => $mlData['body'],
+                    'name' => $mlData['name']
                 ]);
             }
         } else {
@@ -70,7 +71,8 @@ class AlgorithmCategoryController extends Controller
                 CypherCategoryMl::insert([
                     'cypher_category_id' => $cypherCategory->id,
                     'lng_code' => $code,
-                    'body' => $mlData['body']
+                    'body' => $mlData['body'],
+                    'name' => $mlData['name']
                 ]);
             }
         }

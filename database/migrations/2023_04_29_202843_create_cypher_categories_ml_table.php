@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('cypher_categories_ml', function (Blueprint $table) {
             $table->bigInteger('cypher_category_id')->unsigned();
+            $table->string('name');
             $table->string('lng_code');
             $table->text('body')->nullable();
             $table->timestamps();

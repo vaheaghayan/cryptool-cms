@@ -46,7 +46,7 @@
                         @foreach($categories as $category)
                             <tr class="col-lg-12 d-flex justify-content-between">
                                 <td class="columns-lg p-6 text-gray-900">
-                                    {{$category->name}}
+                                    {{$category->ml[0]->name   }}
                                 </td>
                                 <td class="columns-lg p-6 text-gray-900">
                                     {{$category->created_at}}

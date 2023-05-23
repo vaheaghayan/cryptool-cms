@@ -30,7 +30,7 @@ class AlgorithmRequest extends FormRequest
             'data.name' => 'string|required',
             'data.description' => 'string|required',
 //            'data.icon' => 'required|image|mimes:jpg,png,jpeg,gif,svg',
-            'data.category' => Rule::in(Cypher::CATEGORIES),
+            'data.category_id' => 'required|integer',
             'data.show_status' => 'required|in:1,0',
             'ml.en.title' => 'required|string',
             'ml.en.info' => 'required|string',

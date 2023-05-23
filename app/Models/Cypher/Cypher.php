@@ -2,6 +2,7 @@
 
 namespace App\Models\Cypher;
 
+use App\Models\CypherCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -32,4 +33,8 @@ class Cypher extends Model
         return $this->hasOne(CypherMl::class, 'cypher_id', 'id')->where('lng_code', cLng());
     }
 
+    public function category(): HasOne
+    {
+        return $this->hasOne(CypherCategory::class, 'id', 'cypher_category_id');
+    }
 }

@@ -15,9 +15,9 @@ return new class extends Migration {
     {
         Schema::create('cyphers', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('cypher_category_id')->unsigned();
             $table->string('name');
             $table->text('description');
-            $table->enum('category',Cypher::CATEGORIES);
             $table->text('icon')->nullable();
             $table->enum('show_status', [Cypher::STATUS_ACTIVE, Cypher::STATUS_INACTIVE]);
             $table->timestamps();

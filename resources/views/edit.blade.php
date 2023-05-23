@@ -26,7 +26,7 @@
 
         <form class=".col-md-12 mt-8" action="{{route('store', [cLng()])}}" enctype="multipart/form-data" method="post">
             @csrf
-            <div class="col-lg-6 m-auto">
+            <div class="col-lg-12 m-auto">
                 <div id="main-page" >
                     <div>
                         <h1 class="items-center"> Algorithm Create</h1>
@@ -41,13 +41,13 @@
                     <div class="form-group col-lg-4 mt-4">
 
                         <x-input-label  for="category">Select Cipher Category</x-input-label>
-                        <select class="form-control" name="data[category]" id="category">
+                        <select class="form-control" name="data[category_id]" id="category">
                             <option >Select Category</option>
-                            @foreach(\App\Models\Cypher\Cypher::CATEGORIES as $category)
-                            <option value="{{$category}}" @if($cypher && $category == $cypher->category) selected @endif >{{ucwords(str_replace( '_', ' ',$category  ))}}</option>
+                            @foreach(\App\Models\CypherCategory::where('show_status', \App\Models\CypherCategory::STATUS_ACTIVE)->get() as $category)
+                            <option value="{{$category->id}}" @if($cypher && $category->id == $cypher->cypher_category_id) selected @endif >{{ $category->ml[0]->name }}</option>
                             @endforeach
                         </select>
-                        <x-input-error :messages="$errors->get('data.category')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('data.category_id')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">
@@ -160,5 +160,5 @@
     });
 </script>
 
-<script src="{{asset('resources/js/algorithm/index.js')}}"></script>
+@vite('resources/js/algorithm/index.js')
 

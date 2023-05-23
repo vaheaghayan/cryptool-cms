@@ -17,7 +17,6 @@ return new class extends Migration
         Schema::create('cypher_categories', function (Blueprint $table) {
             $table->id();
             $table->string('alias');
-            $table->string('name');
             $table->enum('show_status', [CypherCategory::STATUS_ACTIVE, CypherCategory::STATUS_INACTIVE]);
             $table->timestamps();
         });
