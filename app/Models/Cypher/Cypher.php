@@ -21,6 +21,7 @@ class Cypher extends Model
         'description',
         'icon',
         'show_status',
+        'cypher_category_id'
     ];
 
     public function ml(): HasMany

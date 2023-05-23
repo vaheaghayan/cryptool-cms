@@ -18,8 +18,8 @@ class CypherManager implements CypherContract
             unset($data['icon']);
             $data['icon'] = $imageName;
         }
-
         $data['cypher_category_id'] = $data['category_id'];
+
         unset($data['category_id']);
 
         DB::transaction(function () use ($data, $ml) {
@@ -46,7 +46,6 @@ class CypherManager implements CypherContract
 
         $data['cypher_category_id'] = $data['category_id'];
         unset($data['category_id']);
-
 
         DB::transaction(function () use ($data, $ml, $id) {
 
